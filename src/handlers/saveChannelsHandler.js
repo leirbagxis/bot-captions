@@ -1,11 +1,10 @@
-import verifyChannels from "../utils/verifyChanels.js"
+import verifyChannels from "../utils/verifyChanels"
 
-const myChannel = async (bot, msg) => {
-
+const saveChannel = async (bot, msg) => {
     if (msg.forward_from_chat && msg.forward_from_chat.type === "channel"){
         const channelID = msg.forward_from_chat.id
         const chatID = msg.from.id        
-
+    
         const channelAdmins = await bot.getChatAdministrators(channelID)
         const admin = channelAdmins.find(admin => admin.user.id === chatID && admin.status === "creator")
         
@@ -16,8 +15,4 @@ const myChannel = async (bot, msg) => {
         }
         
     }
-    //console.log(msg);
-    
 }
-
-export default myChannel
