@@ -9,7 +9,7 @@ commands:
       - text: "Meus Grupos"
         callback_data: "my_groups"
   /help:
-    message: "Aqui estao os comandos disponiveis: /start, /help. /about"
+    message: "Adicione o bot como admin e encaminhe uma mensagem citando o seu canal para o bot"
     buttons:
       - text: "Voltar"
         callback_data: "start"

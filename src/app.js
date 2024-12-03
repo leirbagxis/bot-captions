@@ -2,6 +2,7 @@ import TelegramBot  from "node-telegram-bot-api";
 import fs from "fs";
 import yaml from "js-yaml";
 import verifyUser from "./utils/verifyUser.js";
+import myChannel from "./handlers/myChannels.js";
 
 
 const token = "7467025456:AAHflftO3o0pkU8jowg5yiEgsuD1Sz52L9U"
@@ -104,5 +105,11 @@ bot.on("callback_query", async msg => {
         }
         
     }
+    
+})
+
+bot.on("message", async msg => {
+
+    await myChannel(bot, msg)
     
 })
