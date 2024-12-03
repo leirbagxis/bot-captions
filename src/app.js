@@ -1,14 +1,15 @@
 import TelegramBot  from "node-telegram-bot-api";
-import fs from "fs";
-import yaml from "js-yaml";
 import verifyUser from "./utils/verifyUser.js";
-import myChannel from "./handlers/myChannels.js";
+import myChannelsHandler from "./handlers/myChannelsHandler.js";
+import commands from "./config/config.js";
+
+var command = commands()
 
 
 const token = "7467025456:AAHflftO3o0pkU8jowg5yiEgsuD1Sz52L9U"
 const bot = new TelegramBot(token, {polling: true})
 
-const commands = yaml.load(fs.readFileSync("./src/commands.yaml", "utf-8")).commands;
+
 
 const parseMessage = (template, params) => {
     return template.replace(/{(\w+)}/g, (_, key) => params[key] || `{${key}}`)
@@ -24,7 +25,7 @@ const groupButtons = (buttons, itemsPerRow = 2) => {
 
 bot.onText(/\/\w+/, async msg => {
     const chatID = msg.from.id
-    const command = msg.text
+    const input = msg.text
     const message_id = msg.message_id
 
     await verifyUser(chatID)
@@ -34,8 +35,8 @@ bot.onText(/\/\w+/, async msg => {
     }
     
 
-    if (commands[command]){
-        const { message, buttons } = commands[command]
+    if (command[input]){
+        const { message, buttons } = command[input]
         const parsedMessage = parseMessage(message, params)
         console.log(parsedMessage);
         
@@ -78,8 +79,13 @@ bot.on("callback_query", async msg => {
     }
 
 
-    if (commands[`/${data}`]){
-        const { message, buttons } = commands[`/${data}`]
+    if (command[`/${data}`]){
+
+        if (data === "my_groups"){
+            return myChannelsHandler(bot, msg)
+        }
+
+        const { message, buttons } = command[`/${data}`]
         const parsedMessage = parseMessage(message, params)
 
         if (buttons){
@@ -101,7 +107,7 @@ bot.on("callback_query", async msg => {
 
             bot.editMessageText(parsedMessage, keyboard);
         } else {            
-            bot.sendMessage(chatID, parsedMessage, {parse_mode: "Markdown", reply_to_message_id: message_id});
+            bot.editMessageText(parsedMessage, {chat_id: chatID, parse_mode: "Markdown", message_id, reply_to_message_id: message_id});
         }
         
     }
@@ -110,6 +116,6 @@ bot.on("callback_query", async msg => {
 
 bot.on("message", async msg => {
 
-    await myChannel(bot, msg)
+    //await myChannelsHandler(bot, msg)
     
 })
