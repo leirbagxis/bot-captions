@@ -1,0 +1,20 @@
+commands:
+  /start:
+    message: "*Bem vindos ao bot, {name}!*\nEu sou um bot para adicionar legendas automaticas nas suas postagens..."
+    buttons:
+      - text: "Ajuda"
+        callback_data: "help"
+      - text: "Sobre"
+        callback_data: "about"
+      - text: "Meus Grupos"
+        callback_data: "my_groups"
+  /help:
+    message: "Aqui estao os comandos disponiveis: /start, /help. /about"
+    buttons:
+      - text: "Voltar"
+        callback_data: "start"
+  /about:
+    message: "Este e um bot teste!"
+    buttons:
+      - text: "Voltar"
+        callback_data: "start"
