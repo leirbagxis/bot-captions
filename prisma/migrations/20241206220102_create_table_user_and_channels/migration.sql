@@ -7,7 +7,8 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Channels" (
     "id" BIGINT NOT NULL PRIMARY KEY,
-    "channelName" TEXT NOT NULL DEFAULT 'channel_name',
+    "channel_name" TEXT NOT NULL,
+    "caption" TEXT DEFAULT '',
     "ownerID" BIGINT NOT NULL,
     CONSTRAINT "Channels_ownerID_fkey" FOREIGN KEY ("ownerID") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

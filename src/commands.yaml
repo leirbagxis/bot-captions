@@ -20,4 +20,7 @@ commands:
         callback_data: "start"
   /my_groups:
     message: "Aqui esta a sua lista de canais"
+    buttons:
+      - text: "Voltar"
+        callback_data: "start"
     

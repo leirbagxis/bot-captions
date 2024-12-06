@@ -22,7 +22,7 @@ model User {
 
 model Channels {
   id          BigInt    @id @unique 
-  channelName String    @default("channel_name")
+  channelName String    @map("channel_name")
   caption String? @default("")
   ownerID     BigInt
   owner       User      @relation(fields: [ownerID], references: [id])
