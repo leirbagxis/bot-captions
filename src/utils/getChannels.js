@@ -17,4 +17,14 @@ const getChannels = async (chatID) => {
 
 }
 
-export default getChannels
+const getChannelByID = async (channelID) => {
+    const verify = await prisma.channels.findUnique({
+        where: {
+            id: channelID
+        }
+    })
+
+    return verify
+}
+
+export {getChannels, getChannelByID}

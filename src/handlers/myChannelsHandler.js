@@ -1,5 +1,5 @@
 import commands from "../config/config.js";
-import getChannels from "../utils/getChannels.js";
+import {getChannels} from "../utils/getChannels.js";
 
 const command = commands()
 const groupButtons = (buttons, itemsPerRow = 2) => {
@@ -29,6 +29,13 @@ const myChannelsHandler = async (bot, msg) => {
                 }
             ]
         })
+
+        console.log(button);
+        
+
+        //const teste = button.push([buttons.map((btn) => ({ text: btn.text, callback_data: btn.callback_data}))])
+        //console.log(teste);
+        
 
         return bot.editMessageText(message, {
             chat_id: chatID,

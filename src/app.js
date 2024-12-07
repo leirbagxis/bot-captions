@@ -2,6 +2,7 @@ import TelegramBot  from "node-telegram-bot-api";
 import verifyUser from "./utils/verifyUser.js";
 import myChannelsHandler from "./handlers/myChannelsHandler.js";
 import commands from "./config/config.js";
+import saveChannelHandler from "./handlers/saveChannelsHandler.js";
 
 var command = commands()
 
@@ -116,6 +117,6 @@ bot.on("callback_query", async msg => {
 
 bot.on("message", async msg => {
 
-    //await myChannelsHandler(bot, msg)
+    await saveChannelHandler(bot, msg)
     
 })
